@@ -1,12 +1,10 @@
 ---
 - hosts: server
-  tasks:
-    # task 1
-    - name: test connection
-      ping:
-      register: message
-
-    # task 2
-    - name: print debug message
-      debug:
-        msg: "{{ message }}"
+  debug:
+    msg: before install pip
+  roles:
+      - { role: pip, become: yes }  # become:yes 代表要提升當前使用者的權限，等校於 sudo
+      # - { role: curl, become: yes }
+      # - { role: docker, become: yes } 多role排序執行
+  debug:
+    msg: pip install complete
