@@ -1,0 +1,11 @@
+參照 https://ithelp.ithome.com.tw/users/20103346/ironman/1473
+
+# 若 private-key 發生 UNPROTECTED PRIVATE KEY FILE! 警告
+	> chmod 0600 [private key file]
+
+# Control Server & Manage Node
+	> Control Server 需要安裝Ansible
+		Ansible depence on python
+	> Manage Node 只需
+		1. Python(2.6, 2.7 or 3.5+)
+		2. via ssh connection
