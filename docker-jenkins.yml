@@ -3,6 +3,6 @@
   roles:
     - { role: docker-jenkins, become: yes }
   vars:
-    # 放這裡是為了不因分享roles module後導致帳密連帶曝露給其他人
+    ## 放這裡是為了不因分享roles module後導致帳密連帶曝露給其他人
     - jenkins_admin_user: admin
     - jenkins_admin_pass: admin
