@@ -1,5 +1,15 @@
 ---
-  - name: Install pip
-    apt:
-      name: python-pip
-      update_cache: yes  # 等校於安裝前執行 apt-get update
+- name: Check if pip is already installed
+  command: pip --version
+  ignore_errors: true
+  # no change when any change like error happen
+  changed_when: false
+  # assign value in pip_is_installed to register
+  register: pip_is_installed
+  
+- name: Install pip
+  apt:
+    name: python-pip
+    # update_cache equals execute "apt-get update" before install
+    update_cache: yes
+  when: pip_is_installed.rc != 0

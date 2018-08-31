@@ -1,0 +1,7 @@
+---
+- hosts: server
+  tasks:
+    - name: Copy files to server
+      copy:
+        src: plugins.txt
+        dest: /docker/docker-jenkins
