@@ -13,7 +13,7 @@ apt_packages:
 pip_packages:
   # 給後面的Jenkins配合SCM實現自動整合測試
   - ansible-lint
-  
+
 # 這是初始化Jenkins時系統推薦的插件列表(未全部列出，其餘包含在裡面的相依)
 plugins:
   - ant
