@@ -1,7 +1,5 @@
 ---
 - hosts: server
-  debug:
-    msg: before install pip
   roles:
       ## become:yes 代表要提升當前使用者的權限，等校於 sudo
       - { role: pip, become: yes }

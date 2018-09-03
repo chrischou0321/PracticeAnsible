@@ -6,7 +6,7 @@
   changed_when: false
   # assign value in pip_is_installed to register
   register: pip_is_installed
-  
+
 - name: Install pip
   apt:
     name: python-pip
