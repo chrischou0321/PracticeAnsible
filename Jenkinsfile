@@ -6,7 +6,6 @@ pipeline {
     
   }
   stages {
-	try {
 		stage('Checkout') {
 		  steps {
 			git(url: 'https://github.com/serenotus/PracticeAnsible.git', branch: 'master')
@@ -14,16 +13,17 @@ pipeline {
 		}
 		stage('Build') {
 		  steps {
-			sh '''for file in $(find . -type f -name"*.yml")
-					do
-					  ansible-lint $file
-					done'''
-			currentBuild.result = 'SUCCESS'
+		  	try {
+				sh '''for file in $(find . -type f -name"*.yml")
+						do
+						  ansible-lint $file
+						done'''
+				currentBuild.result = 'SUCCESS'
+			} catch (err) {
+				currentBuild.result = 'FAILURE'
+			}
 		  }
 		}
-	} catch (err) {
-        currentBuild.result = 'FAILURE'
-    }
     
     stage('Delivery') {
       steps {
