@@ -1,4 +1,4 @@
-def NotifyLine(token, result) {
+void NotifyLine(token, result) {
 	sh 'echo \'Notify to Line Start.\''
 	// def result = 'SUCCESS'
     // def token = 'PnbiZptLccIfx4DXQLOW3SP7IvgMF91sNaXioIgHcIk'
