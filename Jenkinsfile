@@ -13,6 +13,7 @@ pipeline {
 		}
 		stage('Build') {
 		  steps {
+			def currentBuild.result = 'FAILURE'
 			sh '''for file in $(find . -type f -name"*.yml")
 					do
 					  ansible-lint $file
