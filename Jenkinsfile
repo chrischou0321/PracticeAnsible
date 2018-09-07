@@ -32,7 +32,7 @@ done'''
       steps {
         sh 'echo \'Publish artifact over SSH.\''
         script {
-          def isFailure = result == 'FAILURE'
+          def result = 'SUCCESS'
           def token = 'PnbiZptLccIfx4DXQLOW3SP7IvgMF91sNaXioIgHcIk'
           def url = 'https://notify-api.line.me/api/notify'
           def message = "Build ${env.BRANCH_NAME}, result is ${result}. \n${env.BUILD_URL}"
