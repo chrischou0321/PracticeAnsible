@@ -13,19 +13,19 @@ pipeline {
 		}
 		stage('Build') {
 		  steps {
-			def currentBuild.result = 'FAILURE'
+			def currentBuildResult = 'FAILURE'
 			sh '''for file in $(find . -type f -name"*.yml")
 					do
 					  ansible-lint $file
 					done'''
-			currentBuild.result = 'SUCCESS'
+			currentBuildResult = 'SUCCESS'
 		  }
 		}
     
     stage('Delivery') {
       steps {
         sh 'echo \'Publish artifact over SSH.\''
-		notifyLINE('PnbiZptLccIfx4DXQLOW3SP7IvgMF91sNaXioIgHcIk', currentBuild.result)
+		notifyLINE('PnbiZptLccIfx4DXQLOW3SP7IvgMF91sNaXioIgHcIk', currentBuildResult)
       }
     }
   }
