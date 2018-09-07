@@ -1,3 +1,12 @@
+def NotifyLine(token, result) {
+	sh 'echo \'Notify to Line Start.\''
+	// def result = 'SUCCESS'
+    // def token = 'PnbiZptLccIfx4DXQLOW3SP7IvgMF91sNaXioIgHcIk'
+    def url = 'https://notify-api.line.me/api/notify'
+    def message = "Build ${env.BRANCH_NAME}, result is ${result}. \n${env.BUILD_URL}"
+          
+    sh "curl ${url} -H 'Authorization: Bearer ${token}' -F 'message=${message}'"
+}
 pipeline {
   agent {
     node {
@@ -38,13 +47,4 @@ pipeline {
       }
     }
   }
-}
-def NotifyLine(token, result) {
-	sh 'echo \'Notify to Line Start.\''
-	// def result = 'SUCCESS'
-    // def token = 'PnbiZptLccIfx4DXQLOW3SP7IvgMF91sNaXioIgHcIk'
-    def url = 'https://notify-api.line.me/api/notify'
-    def message = "Build ${env.BRANCH_NAME}, result is ${result}. \n${env.BUILD_URL}"
-          
-    sh "curl ${url} -H 'Authorization: Bearer ${token}' -F 'message=${message}'"
 }
