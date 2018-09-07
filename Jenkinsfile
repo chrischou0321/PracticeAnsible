@@ -13,19 +13,29 @@ pipeline {
 		}
 		stage('Build') {
 		  steps {
-			def currentBuildResult = 'FAILURE'
-			sh '''for file in $(find . -type f -name"*.yml")
-					do
-					  ansible-lint $file
-					done'''
-			currentBuildResult = 'SUCCESS'
+			script {
+				def currentBuildResult = 'FAILURE'
+				try {
+					sh '''for file in $(find . -type f -name"*.yml")
+						do
+						  ansible-lint $file
+						done'''
+					currentBuildResult = 'SUCCESS'
+				} catch(err) {
+					currentBuildResult = 'FAILURE'
+				}
+				
+			}
+			
 		  }
 		}
     
     stage('Delivery') {
       steps {
         sh 'echo \'Publish artifact over SSH.\''
-		notifyLINE('PnbiZptLccIfx4DXQLOW3SP7IvgMF91sNaXioIgHcIk', currentBuildResult)
+		script {
+			notifyLINE('PnbiZptLccIfx4DXQLOW3SP7IvgMF91sNaXioIgHcIk', currentBuildResult)
+		}
       }
     }
   }
