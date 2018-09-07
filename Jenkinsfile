@@ -13,15 +13,15 @@ pipeline {
     }
     stage('Build') {
       steps {
-        sh '''sh \'\'\'for file in $(find . -type f -name"*.yml")
+        sh '''for file in $(find . -type f -name"*.yml")
 do
   ansible-lint $file
-done\'\'\''''
+done'''
       }
     }
     stage('Delivery') {
       steps {
-        sh 'sh \'echo \\\'Publish artifact over SSH.\\\'\''
+        sh 'echo \'Publish artifact over SSH.\''
       }
     }
   }
