@@ -1,12 +1,3 @@
-void NotifyLine(token, result) {
-	sh 'echo \'Notify to Line Start.\''
-	// def result = 'SUCCESS'
-    // def token = 'PnbiZptLccIfx4DXQLOW3SP7IvgMF91sNaXioIgHcIk'
-    def url = 'https://notify-api.line.me/api/notify'
-    def message = "Build ${env.BRANCH_NAME}, result is ${result}. \n${env.BUILD_URL}"
-          
-    sh "curl ${url} -H 'Authorization: Bearer ${token}' -F 'message=${message}'"
-}
 pipeline {
   agent {
     node {
@@ -40,11 +31,21 @@ pipeline {
     stage('Delivery') {
       steps {
         sh 'echo \'Publish artifact over SSH.\''
-        script {
-          NotifyLine('PnbiZptLccIfx4DXQLOW3SP7IvgMF91sNaXioIgHcIk', currentBuildResult)
-        }
-        
       }
     }
+	stage('Notify') {
+		script {
+			def result = 'SUCCESS'
+			def isFailure = result == 'FAILURE'
+			def token = 'PnbiZptLccIfx4DXQLOW3SP7IvgMF91sNaXioIgHcIk'
+			def url = 'https://notify-api.line.me/api/notify'
+			def message = "Build ${env.BRANCH_NAME}, result is ${result}. \n${env.BUILD_URL}"
+			def imageThumbnail = isFailure ? 'FAILED_IMAGE_THUMBNAIL' : ''
+			def imageFullsize = isFailure ? 'FAILED_IMAGE_FULLSIZE' : ''
+				  
+			sh "curl ${url} -H 'Authorization: Bearer ${token}' -F 'message=${message}' \
+			-F 'imageThumbnail=${imageThumbnail}' -F 'imageFullsize=${imageFullsize}'"
+        }
+	}
   }
 }
