@@ -42,6 +42,5 @@ def notifyLINE(token, result) {
     def imageThumbnail = isFailure ? 'FAILED_IMAGE_THUMBNAIL' : ''
     def imageFullsize = isFailure ? 'FAILED_IMAGE_FULLSIZE' : ''
       
-    sh "curl ${url} -H 'Authorization: Bearer ${token}' -F 'message=${message}'   
-    -F 'imageThumbnail=${imageThumbnail}' -F 'imageFullsize=${imageFullsize}'"
+    sh "curl ${url} -H 'Authorization: Bearer ${token}' -F 'message=${message}' -F 'imageThumbnail=${imageThumbnail}' -F 'imageFullsize=${imageFullsize}'"
 }
