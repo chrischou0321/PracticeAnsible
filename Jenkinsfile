@@ -13,15 +13,11 @@ pipeline {
 		}
 		stage('Build') {
 		  steps {
-		  	try {
-				sh '''for file in $(find . -type f -name"*.yml")
-						do
-						  ansible-lint $file
-						done'''
-				currentBuild.result = 'SUCCESS'
-			} catch (err) {
-				currentBuild.result = 'FAILURE'
-			}
+			sh '''for file in $(find . -type f -name"*.yml")
+					do
+					  ansible-lint $file
+					done'''
+			currentBuild.result = 'SUCCESS'
 		  }
 		}
     
